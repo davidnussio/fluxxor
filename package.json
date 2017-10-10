@@ -9,7 +9,6 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive",
-    "build": "./script/build-fluxxor",
     "lint-staged": "$(npm bin)/lint-staged"
   },
   "lint-staged": {
@@ -47,9 +46,7 @@
     "prettier": "^1.7.4",
     "react": "^0.13.0",
     "sinon": "^4.0.1",
-    "sinon-chai": "^2.5.0",
-    "webpack": "^1.1.11",
-    "webpack-dev-server": "^1.2.7"
+    "sinon-chai": "^2.5.0"
   },
   "dependencies": {
     "eventemitter3": "^2.0.3",
