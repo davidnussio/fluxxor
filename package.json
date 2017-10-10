@@ -8,10 +8,24 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "npm run jshint && mocha --recursive",
-    "jshint": "jsxhint lib/ test/",
-    "build": "./script/build-fluxxor && ./script/build-examples"
+    "test": "mocha --recursive",
+    "build": "./script/build-fluxxor && ./script/build-examples",
+    "lint-staged": "$(npm bin)/lint-staged"
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "lib/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "pre-commit": [
+    "test",
+    "lint-staged"
+  ],
   "keywords": [
     "react",
     "flux"
@@ -19,24 +33,32 @@
   "author": "Michelle Tilley <michelle@michelletilley.net>",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^8.0.1",
     "chai": "^1.9.1",
     "css-loader": "^0.6.12",
     "envify": "^1.2.1",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "jsdom": "~3.1.2",
     "json-loader": "^0.5.0",
     "jsx-loader": "^0.12.0",
-    "jsxhint": "^0.5.0",
     "less": "^1.7.0",
     "less-loader": "^0.7.3",
+    "lint-staged": "^4.2.3",
     "mocha": "^2.2.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.7.4",
     "react": "^0.13.0",
     "react-router": "^0.13.0",
     "sinon": "^1.9.1",
     "sinon-chai": "^2.5.0",
     "style-loader": "^0.6.3",
+    "tcomb": "^1.0.0",
     "tcomb-form": "^0.4.8",
     "tcomb-validation": "^1.0.3",
-    "tcomb": "^1.0.0",
     "webpack": "^1.1.11",
     "webpack-dev-server": "^1.2.7"
   },
@@ -44,24 +66,5 @@
     "eventemitter3": "^2.0.3",
     "lodash": "^4.17.4",
     "object-path": "^0.11.4"
-  },
-  "jshintConfig": {
-    "camelcase": true,
-    "curly": true,
-    "eqeqeq": true,
-    "forin": true,
-    "latedef": true,
-    "newcap": false,
-    "undef": true,
-    "unused": true,
-    "trailing": true,
-    "node": true,
-    "browser": true,
-    "predef": [
-      "it",
-      "describe",
-      "beforeEach",
-      "afterEach"
-    ]
   }
 }
