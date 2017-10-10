@@ -34,7 +34,7 @@
   "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^8.0.1",
-    "chai": "^1.9.1",
+    "chai": "^4.1.2",
     "envify": "^1.2.1",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.2",
@@ -43,11 +43,11 @@
     "eslint-plugin-prettier": "^2.3.1",
     "jsdom": "~3.1.2",
     "lint-staged": "^4.2.3",
-    "mocha": "^2.2.1",
+    "mocha": "^4.0.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.7.4",
     "react": "^0.13.0",
-    "sinon": "^1.9.1",
+    "sinon": "^4.0.1",
     "sinon-chai": "^2.5.0",
     "webpack": "^1.1.11",
     "webpack-dev-server": "^1.2.7"

@@ -179,7 +179,7 @@ describe("Dispatch interceptor", function() {
 
     TestUtils.renderIntoDocument(App({ flux: flux }));
     flux.actions.activate(function(err) {
-      expect(err).to.be.defined;
+      expect(err).to.be.undefined;
       expect(dispatches).to.eql(1);
       done();
     });
