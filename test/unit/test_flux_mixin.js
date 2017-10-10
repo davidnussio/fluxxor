@@ -1,8 +1,8 @@
 var Fluxxor = require("../../"),
-    jsdom = require("jsdom");
+  jsdom = require("jsdom");
 
 var chai = require("chai"),
-    expect = chai.expect;
+  expect = chai.expect;
 
 function createComponent(React, FluxMixin, FluxChildMixin) {
   var Parent = React.createClass({
@@ -55,7 +55,7 @@ describe("FluxMixin", function() {
     console._warn = console.warn;
     console.warn = function() {};
 
-    var doc = jsdom.jsdom('<html><body></body></html>');
+    var doc = jsdom.jsdom("<html><body></body></html>");
     global.window = doc.defaultView;
     global.document = window.document;
     global.navigator = window.navigator;
@@ -80,22 +80,31 @@ describe("FluxMixin", function() {
 
   it("passes flux via getFlux() to descendants who ask for it", function() {
     /* jshint expr:true */
-    var tree = TestUtils.renderIntoDocument(React.createElement(Parent, {flux: flux}));
+    var tree = TestUtils.renderIntoDocument(
+      React.createElement(Parent, { flux: flux })
+    );
     expect(tree.getFlux()).to.equal(flux);
     var child = TestUtils.findRenderedComponentWithType(tree, Child);
     expect(child.getFlux).to.be.undefined;
     var grandchild = TestUtils.findRenderedComponentWithType(tree, Grandchild);
     expect(grandchild.getFlux()).to.equal(flux);
-    var greatGrandchild = TestUtils.findRenderedComponentWithType(tree, GreatGrandchild);
+    var greatGrandchild = TestUtils.findRenderedComponentWithType(
+      tree,
+      GreatGrandchild
+    );
     expect(greatGrandchild.getFlux()).to.equal(flux);
   });
 
   it("throws when it can't find flux on the props or context", function() {
-    var Comp = React.createFactory(React.createClass({
-      displayName: "TestComponent",
-      mixins: [Fluxxor.FluxMixin(React)],
-      render: function() { return React.DOM.div(); }
-    }));
+    var Comp = React.createFactory(
+      React.createClass({
+        displayName: "TestComponent",
+        mixins: [Fluxxor.FluxMixin(React)],
+        render: function() {
+          return React.DOM.div();
+        }
+      })
+    );
     expect(function() {
       React.renderToString(Comp());
     }).to.throw(/Could not find flux.*TestComponent/);
@@ -105,7 +114,9 @@ describe("FluxMixin", function() {
     expect(function() {
       React.createClass({
         mixins: [Fluxxor.FluxMixin],
-        render: function() { return React.DOM.div(); }
+        render: function() {
+          return React.DOM.div();
+        }
       });
     }).to.throw(/attempting to use a component class as a mixin/);
   });
@@ -120,11 +131,15 @@ describe("FluxMixin", function() {
       }
     };
 
-    var Comp = React.createFactory(React.createClass({
-      mixins: [Fluxxor.FluxChildMixin(React)],
-      displayName: "CompName",
-      render: function() { return React.DOM.div(); }
-    }));
+    var Comp = React.createFactory(
+      React.createClass({
+        mixins: [Fluxxor.FluxChildMixin(React)],
+        displayName: "CompName",
+        render: function() {
+          return React.DOM.div();
+        }
+      })
+    );
     React.renderToString(Comp());
     expect(warned).to.equal(true);
   });
@@ -133,7 +148,9 @@ describe("FluxMixin", function() {
     expect(function() {
       React.createClass({
         mixins: [Fluxxor.FluxChildMixin],
-        render: function() { return React.DOM.div(); }
+        render: function() {
+          return React.DOM.div();
+        }
       });
     }).to.throw(/attempting to use a component class as a mixin/);
   });

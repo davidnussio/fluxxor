@@ -1,16 +1,21 @@
 var Fluxxor = require("../../"),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin,
-    jsdom = require("jsdom");
+  StoreWatchMixin = Fluxxor.StoreWatchMixin,
+  jsdom = require("jsdom");
 
 var chai = require("chai"),
-    expect = chai.expect;
+  expect = chai.expect;
 
 describe("StoreWatchMixin", function() {
-  var SwappedComponent, createComponent, React, TestUtils, Comp, FluxMixin, flux;
+  var SwappedComponent,
+    createComponent,
+    React,
+    TestUtils,
+    Comp,
+    FluxMixin,
+    flux;
 
   beforeEach(function() {
-
-    var doc = jsdom.jsdom('<html><body></body></html>');
+    var doc = jsdom.jsdom("<html><body></body></html>");
     global.window = doc.defaultView;
     global.document = window.document;
     global.navigator = window.navigator;
@@ -23,52 +28,62 @@ describe("StoreWatchMixin", function() {
     TestUtils = React.addons.TestUtils;
     FluxMixin = Fluxxor.FluxMixin(React);
 
-    SwappedComponent = React.createFactory(React.createClass({
-      mixins: [FluxMixin, StoreWatchMixin("Store1")],
-
-      getStateFromFlux: function() {
-        return {
-          store1state: this.getFlux().store("Store1").getState(),
-        };
-      },
-
-      render: function() {
-        return React.DOM.div(null, [
-          React.DOM.span({key: 1}, String(this.state.store1state.value)),
-        ]);
-      }
-    }));
-
-    createComponent = function createComponent(React) {
-      var Component = React.createFactory(React.createClass({
-        mixins: [FluxMixin, StoreWatchMixin("Store1", "Store2")],
+    SwappedComponent = React.createFactory(
+      React.createClass({
+        mixins: [FluxMixin, StoreWatchMixin("Store1")],
 
         getStateFromFlux: function() {
-          this.getStateCalls = this.getStateCalls || 0;
-          this.getStateCalls++;
           return {
-            store1state: this.getFlux().store("Store1").getState(),
-            store2state: this.getFlux().store("Store2").getState()
+            store1state: this.getFlux()
+              .store("Store1")
+              .getState()
           };
         },
 
         render: function() {
-          if(this.state.store1state.value === 0) {
-            return React.DOM.div(null, SwappedComponent());
-          }
           return React.DOM.div(null, [
-            React.DOM.span({key: 1}, String(this.state.store1state.value)),
-            React.DOM.span({key: 2}, String(this.state.store2state.value))
+            React.DOM.span({ key: 1 }, String(this.state.store1state.value))
           ]);
         }
-      }));
+      })
+    );
+
+    createComponent = function createComponent(React) {
+      var Component = React.createFactory(
+        React.createClass({
+          mixins: [FluxMixin, StoreWatchMixin("Store1", "Store2")],
+
+          getStateFromFlux: function() {
+            this.getStateCalls = this.getStateCalls || 0;
+            this.getStateCalls++;
+            return {
+              store1state: this.getFlux()
+                .store("Store1")
+                .getState(),
+              store2state: this.getFlux()
+                .store("Store2")
+                .getState()
+            };
+          },
+
+          render: function() {
+            if (this.state.store1state.value === 0) {
+              return React.DOM.div(null, SwappedComponent());
+            }
+            return React.DOM.div(null, [
+              React.DOM.span({ key: 1 }, String(this.state.store1state.value)),
+              React.DOM.span({ key: 2 }, String(this.state.store2state.value))
+            ]);
+          }
+        })
+      );
 
       return Component;
     };
 
     var Store = Fluxxor.createStore({
       actions: {
-        "ACTION": "handleAction"
+        ACTION: "handleAction"
       },
 
       initialize: function() {
@@ -106,29 +121,43 @@ describe("StoreWatchMixin", function() {
     delete global.navigator;
   });
 
-  it("watches for store change events until the component is unmounted", function(done) {
-    var tree = TestUtils.renderIntoDocument(Comp({flux: flux}));
+  it("watches for store change events until the component is unmounted", function(
+    done
+  ) {
+    var tree = TestUtils.renderIntoDocument(Comp({ flux: flux }));
     expect(tree.getStateCalls).to.eql(1);
-    expect(tree.state).to.eql({store1state: {value: 0}, store2state: {value: 0}});
+    expect(tree.state).to.eql({
+      store1state: { value: 0 },
+      store2state: { value: 0 }
+    });
     flux.actions.act();
     expect(tree.getStateCalls).to.eql(3);
-    expect(tree.state).to.eql({store1state: {value: 1}, store2state: {value: 1}});
+    expect(tree.state).to.eql({
+      store1state: { value: 1 },
+      store2state: { value: 1 }
+    });
     React.unmountComponentAtNode(tree.getDOMNode().parentNode);
     setTimeout(function() {
       flux.actions.act();
       expect(tree.getStateCalls).to.eql(3);
-      expect(tree.state).to.eql({store1state: {value: 1}, store2state: {value: 1}});
+      expect(tree.state).to.eql({
+        store1state: { value: 1 },
+        store2state: { value: 1 }
+      });
       done();
     });
   });
 
   it("throws when attempting to mix in the function directly", function() {
     expect(function() {
-      React.createFactory(React.createClass({
-        mixins: [Fluxxor.StoreWatchMixin],
-        render: function() { return React.DOM.div(); }
-      }));
+      React.createFactory(
+        React.createClass({
+          mixins: [Fluxxor.StoreWatchMixin],
+          render: function() {
+            return React.DOM.div();
+          }
+        })
+      );
     }).to.throw(/attempting to use a component class as a mixin/);
   });
-
 });

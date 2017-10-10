@@ -1,13 +1,13 @@
 var Fluxxor = require("../../"),
-    jsdom = require("jsdom");
+  jsdom = require("jsdom");
 
 var chai = require("chai"),
-    expect = chai.expect;
+  expect = chai.expect;
 
 var Store = Fluxxor.createStore({
   actions: {
-    "ACTIVATE": "handleActivate",
-    "LOAD_INITIAL_VALUE": "handleLoadInitialValue"
+    ACTIVATE: "handleActivate",
+    LOAD_INITIAL_VALUE: "handleLoadInitialValue"
   },
 
   initialize: function() {
@@ -28,18 +28,20 @@ var Store = Fluxxor.createStore({
 
 var actions = {
   activate: function(callback) {
-    setTimeout(function() {
-      try {
-        this.dispatch("ACTIVATE");
-        callback();
-      } catch (ex) {
-        if (ex instanceof chai.AssertionError) {
-          throw ex;
-        } else {
-          callback(ex);
+    setTimeout(
+      function() {
+        try {
+          this.dispatch("ACTIVATE");
+          callback();
+        } catch (ex) {
+          if (ex instanceof chai.AssertionError) {
+            throw ex;
+          } else {
+            callback(ex);
+          }
         }
-      }
-    }.bind(this));
+      }.bind(this)
+    );
   },
 
   loadInitialValue: function() {
@@ -59,63 +61,64 @@ describe("Dispatch interceptor", function() {
     React = require("react/addons");
     TestUtils = React.addons.TestUtils;
 
-    flux = new Fluxxor.Flux({store: new Store()}, actions);
+    flux = new Fluxxor.Flux({ store: new Store() }, actions);
 
-    App = React.createFactory(React.createClass({
-      displayName: "App",
-      mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("store")],
+    App = React.createFactory(
+      React.createClass({
+        displayName: "App",
+        mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("store")],
 
-      getStateFromFlux: function() {
-        return {
-          activated: this.getFlux().store("store").activated
-        };
-      },
+        getStateFromFlux: function() {
+          return {
+            activated: this.getFlux().store("store").activated
+          };
+        },
 
-      render: function() {
-        return React.DOM.div({}, this.renderChild());
-      },
+        render: function() {
+          return React.DOM.div({}, this.renderChild());
+        },
 
-      renderChild: function() {
-        if (!this.state.activated) {
-          return ComponentA();
-        } else {
-          return ComponentB();
+        renderChild: function() {
+          if (!this.state.activated) {
+            return ComponentA();
+          } else {
+            return ComponentB();
+          }
         }
-      }
-    }));
+      })
+    );
 
-    ComponentA = React.createFactory(React.createClass({
-      displayName: "ComponentA",
-      mixins: [
-        Fluxxor.FluxMixin(React)
-      ],
+    ComponentA = React.createFactory(
+      React.createClass({
+        displayName: "ComponentA",
+        mixins: [Fluxxor.FluxMixin(React)],
 
-      render: function() {
-        return React.DOM.div();
-      }
-    }));
+        render: function() {
+          return React.DOM.div();
+        }
+      })
+    );
 
-    ComponentB = React.createFactory(React.createClass({
-      displayName: "ComponentB",
-      mixins: [
-        Fluxxor.FluxMixin(React),
-        Fluxxor.StoreWatchMixin("store")
-      ],
+    ComponentB = React.createFactory(
+      React.createClass({
+        displayName: "ComponentB",
+        mixins: [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin("store")],
 
-      getStateFromFlux: function() {
-        return {
-          value: this.getFlux().store("store").value
-        };
-      },
+        getStateFromFlux: function() {
+          return {
+            value: this.getFlux().store("store").value
+          };
+        },
 
-      componentWillMount: function() {
-        this.getFlux().actions.loadInitialValue();
-      },
+        componentWillMount: function() {
+          this.getFlux().actions.loadInitialValue();
+        },
 
-      render: function() {
-        return React.DOM.div();
-      },
-    }));
+        render: function() {
+          return React.DOM.div();
+        }
+      })
+    );
   });
 
   afterEach(function() {
@@ -131,7 +134,7 @@ describe("Dispatch interceptor", function() {
 
   it("doesn't intercept by default", function(done) {
     /* jshint expr:true */
-    TestUtils.renderIntoDocument(App({flux: flux}));
+    TestUtils.renderIntoDocument(App({ flux: flux }));
     flux.actions.activate(function(err) {
       expect(err).to.match(/dispatch.*another action/);
       done();
@@ -146,7 +149,7 @@ describe("Dispatch interceptor", function() {
       });
     });
 
-    TestUtils.renderIntoDocument(App({flux: flux}));
+    TestUtils.renderIntoDocument(App({ flux: flux }));
     flux.actions.activate(function(err) {
       expect(err).to.be.undefined;
       done();
@@ -163,7 +166,7 @@ describe("Dispatch interceptor", function() {
       });
     });
 
-    TestUtils.renderIntoDocument(App({flux: flux}));
+    TestUtils.renderIntoDocument(App({ flux: flux }));
     flux.actions.activate(function(err) {
       expect(err).to.be.undefined;
       expect(dispatches).to.eql(2);
@@ -178,7 +181,7 @@ describe("Dispatch interceptor", function() {
       dispatches++;
     });
 
-    TestUtils.renderIntoDocument(App({flux: flux}));
+    TestUtils.renderIntoDocument(App({ flux: flux }));
     flux.actions.activate(function(err) {
       expect(err).to.be.defined;
       expect(dispatches).to.eql(1);
