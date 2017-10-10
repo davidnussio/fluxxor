@@ -1,5 +1,5 @@
 var Fluxxor = require("../../lib"),
-  jsdom = require("jsdom");
+  JSDOM = require("jsdom").JSDOM;
 
 var chai = require("chai"),
   expect = chai.expect;
@@ -55,10 +55,10 @@ describe("FluxMixin", function() {
     console._warn = console.warn;
     console.warn = function() {};
 
-    var doc = jsdom.jsdom("<html><body></body></html>");
-    global.window = doc.defaultView;
-    global.document = window.document;
-    global.navigator = window.navigator;
+    var jsdom = new JSDOM("<html><body></body></html>");
+    global.window = jsdom.window;
+    global.document = global.window.document;
+    global.navigator = global.window.navigator;
     React = require("react/addons");
     TestUtils = React.addons.TestUtils;
     FluxMixin = Fluxxor.FluxMixin(React);

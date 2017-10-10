@@ -1,6 +1,6 @@
 var Fluxxor = require("../../lib"),
   StoreWatchMixin = Fluxxor.StoreWatchMixin,
-  jsdom = require("jsdom");
+  JSDOM = require("jsdom").JSDOM;
 
 var chai = require("chai"),
   expect = chai.expect;
@@ -15,10 +15,10 @@ describe("StoreWatchMixin", function() {
     flux;
 
   beforeEach(function() {
-    var doc = jsdom.jsdom("<html><body></body></html>");
-    global.window = doc.defaultView;
-    global.document = window.document;
-    global.navigator = window.navigator;
+    var jsdom = new JSDOM("<html><body></body></html>");
+    global.window = jsdom.window;
+    global.document = global.window.document;
+    global.navigator = global.window.navigator;
     for (var i in require.cache) {
       if (require.cache.hasOwnProperty(i)) {
         delete require.cache[i];

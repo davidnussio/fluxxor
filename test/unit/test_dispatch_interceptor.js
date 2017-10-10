@@ -1,5 +1,5 @@
 var Fluxxor = require("../../"),
-  jsdom = require("jsdom");
+  JSDOM = require("jsdom").JSDOM;
 
 var chai = require("chai"),
   expect = chai.expect;
@@ -54,10 +54,10 @@ describe("Dispatch interceptor", function() {
   var flux, App, ComponentA, ComponentB;
 
   beforeEach(function() {
-    var doc = jsdom.jsdom("<html><body></body></html>");
-    global.window = doc.defaultView;
-    global.document = window.document;
-    global.navigator = window.navigator;
+    var jsdom = new JSDOM("<html><body></body></html>");
+    global.window = jsdom.window;
+    global.document = global.window.document;
+    global.navigator = global.window.navigator;
     React = require("react/addons");
     TestUtils = React.addons.TestUtils;
 

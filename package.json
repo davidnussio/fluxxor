@@ -39,7 +39,7 @@
     "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "jsdom": "~3.1.2",
+    "jsdom": "^11.3.0",
     "lint-staged": "^4.2.3",
     "mocha": "^4.0.1",
     "pre-commit": "^1.2.2",
