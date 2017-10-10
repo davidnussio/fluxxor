@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive",
-    "build": "./script/build-fluxxor && ./script/build-examples",
+    "build": "./script/build-fluxxor",
     "lint-staged": "$(npm bin)/lint-staged"
   },
   "lint-staged": {
