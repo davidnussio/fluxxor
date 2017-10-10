@@ -6,17 +6,17 @@
     "type": "git",
     "url": "https://github.com/BinaryMuse/fluxxor.git"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha --recursive",
     "lint-staged": "$(npm bin)/lint-staged"
   },
   "lint-staged": {
-    "*.js": [
+    "lib/**/*.js": [
       "prettier --write",
       "git add"
     ],
-    "lib/**/*.js": [
+    "test/**/*.js": [
       "prettier --write",
       "git add"
     ]

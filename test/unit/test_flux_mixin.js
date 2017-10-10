@@ -1,4 +1,4 @@
-var Fluxxor = require("../../"),
+var Fluxxor = require("../../lib"),
   jsdom = require("jsdom");
 
 var chai = require("chai"),

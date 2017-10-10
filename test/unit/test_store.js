@@ -1,4 +1,4 @@
-var Fluxxor = require("../../");
+var Fluxxor = require("../../lib");
 
 var chai = require("chai"),
   expect = chai.expect,

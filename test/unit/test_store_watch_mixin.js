@@ -1,4 +1,4 @@
-var Fluxxor = require("../../"),
+var Fluxxor = require("../../lib"),
   StoreWatchMixin = Fluxxor.StoreWatchMixin,
   jsdom = require("jsdom");
 
