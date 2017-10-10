@@ -37,6 +37,8 @@
     "sinon-chai": "^2.5.0",
     "style-loader": "^0.6.3",
     "tcomb-form": "^0.4.8",
+    "tcomb-validation": "^1.0.3",
+    "tcomb": "^1.0.0",
     "webpack": "^1.1.11",
     "webpack-dev-server": "^1.2.7",
     "wintersmith": "^2.0.10",
@@ -44,9 +46,9 @@
     "wintersmith-less": "^0.2.2"
   },
   "dependencies": {
-    "eventemitter3": "^0.1.5",
-    "lodash": "^3.8.0",
-    "object-path": "^0.6.0"
+    "eventemitter3": "^2.0.3",
+    "lodash": "^4.17.4",
+    "object-path": "^0.11.4"
   },
   "jshintConfig": {
     "camelcase": true,
