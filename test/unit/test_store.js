@@ -9,7 +9,6 @@ chai.use(sinonChai);
 
 describe("Store", function() {
   it("passes one object from constructor to initialize", function(done) {
-    /* jshint expr:true */
     var Store = Fluxxor.createStore({
       initialize: function(opt, nothing) {
         expect(opt).to.equal(42);

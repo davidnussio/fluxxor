@@ -330,7 +330,6 @@ describe("Flux", function() {
     });
 
     it("emits an event when dispatching an action", function() {
-      /* jshint -W030 */
       var payload1 = { payload: "1", thing: [1, 2, 3] },
         payload2 = { payload: "2", thing: [1, 2, 3] },
         payload3 = { payload: "3", thing: [1, 2, 3] },

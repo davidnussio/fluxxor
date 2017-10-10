@@ -133,7 +133,6 @@ describe("Dispatch interceptor", function() {
   });
 
   it("doesn't intercept by default", function(done) {
-    /* jshint expr:true */
     TestUtils.renderIntoDocument(App({ flux: flux }));
     flux.actions.activate(function(err) {
       expect(err).to.match(/dispatch.*another action/);
@@ -142,7 +141,6 @@ describe("Dispatch interceptor", function() {
   });
 
   it("allows intercepting", function(done) {
-    /* jshint expr:true */
     flux.setDispatchInterceptor(function(action, dispatch) {
       React.addons.batchedUpdates(function() {
         dispatch(action);
@@ -158,7 +156,6 @@ describe("Dispatch interceptor", function() {
 
   it("allows nested interceptors", function(done) {
     var dispatches = 0;
-    /* jshint expr:true */
     flux.setDispatchInterceptor(function(action, dispatch) {
       dispatches++;
       React.addons.batchedUpdates(function() {
@@ -176,7 +173,6 @@ describe("Dispatch interceptor", function() {
 
   it("allows completely custom interceptors", function(done) {
     var dispatches = 0;
-    /* jshint expr:true */
     flux.setDispatchInterceptor(function() {
       dispatches++;
     });

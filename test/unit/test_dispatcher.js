@@ -249,7 +249,6 @@ describe("Dispatcher", function() {
     });
 
     it("warns if a dispatched action is not handled by any store", function() {
-      /* jshint -W030 */
       var Store1 = Fluxxor.createStore({});
       var Store2 = Fluxxor.createStore({});
 
@@ -263,7 +262,6 @@ describe("Dispatcher", function() {
     });
 
     it("doesn't warn if a dispatched action is handled by any store", function() {
-      /* jshint -W030 */
       var Store1 = Fluxxor.createStore({
         actions: { ACTION_TYPE: "handleAction" },
         handleAction: function() {}

@@ -79,7 +79,6 @@ describe("FluxMixin", function() {
   });
 
   it("passes flux via getFlux() to descendants who ask for it", function() {
-    /* jshint expr:true */
     var tree = TestUtils.renderIntoDocument(
       React.createElement(Parent, { flux: flux })
     );
