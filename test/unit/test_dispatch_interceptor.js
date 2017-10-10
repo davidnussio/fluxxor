@@ -125,11 +125,6 @@ describe("Dispatch interceptor", function() {
     delete global.window;
     delete global.document;
     delete global.navigator;
-    for (var i in require.cache) {
-      if (require.cache.hasOwnProperty(i)) {
-        delete require.cache[i]; // ugh react why
-      }
-    }
   });
 
   it("doesn't intercept by default", function(done) {

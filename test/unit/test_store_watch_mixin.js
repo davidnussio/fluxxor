@@ -19,11 +19,6 @@ describe("StoreWatchMixin", function() {
     global.window = jsdom.window;
     global.document = global.window.document;
     global.navigator = global.window.navigator;
-    for (var i in require.cache) {
-      if (require.cache.hasOwnProperty(i)) {
-        delete require.cache[i];
-      }
-    }
     React = require("react/addons");
     TestUtils = React.addons.TestUtils;
     FluxMixin = Fluxxor.FluxMixin(React);
