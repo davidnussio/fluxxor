@@ -10,9 +10,7 @@
   "scripts": {
     "test": "npm run jshint && mocha --recursive",
     "jshint": "jsxhint lib/ test/",
-    "build": "./script/build-fluxxor && ./script/build-examples",
-    "preview-site": "wintersmith preview -C site",
-    "build-site": "wintersmith build -C site"
+    "build": "./script/build-fluxxor && ./script/build-examples"
   },
   "keywords": [
     "react",
@@ -40,10 +38,7 @@
     "tcomb-validation": "^1.0.3",
     "tcomb": "^1.0.0",
     "webpack": "^1.1.11",
-    "webpack-dev-server": "^1.2.7",
-    "wintersmith": "^2.0.10",
-    "wintersmith-ejs": "^0.1.4",
-    "wintersmith-less": "^0.2.2"
+    "webpack-dev-server": "^1.2.7"
   },
   "dependencies": {
     "eventemitter3": "^2.0.3",

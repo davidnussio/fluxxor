@@ -14,7 +14,6 @@
     "lib",
     "node_modules",
     "script",
-    "site",
     "test",
     ".gitignore",
     ".travis.yml",
