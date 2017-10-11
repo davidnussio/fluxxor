@@ -62,7 +62,7 @@
     "last 3 iOS major versions"
   ],
   "devDependencies": {
-    "@demiazz/brandon": "2.0.0",
+    "@demiazz/brandon": "2.1.0",
     "babel-jest": "21.2.0",
     "babel-preset-react": "6.24.1",
     "create-react-class": "15.6.2",
