@@ -4,6 +4,8 @@
   "plugins": ["prettier"],
 
   "rules": {
+    "no-console": "off",
+    "no-param-reassign": "off",
     "no-underscore-dangle": "off",
 
     "import/no-extraneous-dependencies": [
@@ -25,9 +27,6 @@
   "overrides": [
     {
       "files": ["test/**/*.js", "test/**/*.jsx"],
-      "rules": {
-        "no-console": "off",
-      },
       "env": {
         "jest": true
       }

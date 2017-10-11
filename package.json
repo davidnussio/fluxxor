@@ -14,6 +14,7 @@
   "lint-staged": {
     "lib/**/*.js": [
       "prettier --write",
+      "eslint",
       "git add"
     ],
     "test/**/*.js": [
