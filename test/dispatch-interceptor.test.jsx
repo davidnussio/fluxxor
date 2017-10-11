@@ -68,11 +68,9 @@ describe("Dispatch interceptor", () => {
       },
 
       render() {
-        return React.DOM.div({}, this.renderChild());
-      },
-
-      renderChild() {
-        return this.state.activated ? <ComponentB /> : <ComponentA />;
+        return (
+          <div>{this.state.activated ? <ComponentB /> : <ComponentA />}</div>
+        );
       }
     });
 
