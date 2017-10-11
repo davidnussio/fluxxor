@@ -1,10 +1,10 @@
 {
-  "extends": ["eslint-config-airbnb-base", "prettier"],
+  "extends": ["eslint-config-airbnb", "prettier", "prettier/react"],
 
   "plugins": ["prettier"],
 
   "rules": {
-    "prettier/prettier": "error",
+    "no-underscore-dangle": "off",
 
     "import/no-extraneous-dependencies": [
       "error",
@@ -13,8 +13,24 @@
         "optionalDependencies": false,
         "peerDependencies": false
       }
-    ]
+    ],
+
+    "prettier/prettier": "error",
+
+    "react/no-find-dom-node": "off"
   },
 
   "parser": "babel-eslint",
+
+  "overrides": [
+    {
+      "files": ["test/**/*.js", "test/**/*.jsx"],
+      "rules": {
+        "no-console": "off",
+      },
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }

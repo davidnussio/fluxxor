@@ -8,8 +8,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha --recursive",
-    "lint-staged": "$(npm bin)/lint-staged"
+    "test": "$(yarn bin)/jest",
+    "lint-staged": "$(yarn bin)/lint-staged"
   },
   "lint-staged": {
     "lib/**/*.js": [
@@ -18,11 +18,11 @@
     ],
     "test/**/*.js": [
       "prettier --write",
+      "eslint",
       "git add"
     ]
   },
   "pre-commit": [
-    "test",
     "lint-staged"
   ],
   "keywords": [
@@ -32,25 +32,46 @@
   "author": "Michelle Tilley <michelle@michelletilley.net>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
-    "chai": "^4.1.2",
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "create-react-class": "^15.6.2",
     "eslint": "^4.8.0",
-    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-config-airbnb": "^16.0.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-prettier": "^2.3.1",
-    "jsdom": "^11.3.0",
+    "eslint-plugin-react": "^7.4.0",
+    "jest": "^21.2.1",
     "lint-staged": "^4.2.3",
-    "mocha": "^4.0.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.7.4",
-    "react": "^0.13.0",
-    "sinon": "^4.0.1",
-    "sinon-chai": "^2.5.0"
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "dependencies": {
     "eventemitter3": "^2.0.3",
     "lodash": "^4.17.4",
     "object-path": "^0.11.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "jsx",
+      "js"
+    ],
+    "testMatch": [
+      "<rootDir>/test/**/*.test.js",
+      "<rootDir>/test/**/*.test.jsx"
+    ],
+    "transform": {
+      "^.+\\.js(x)?$": "<rootDir>/node_modules/babel-jest"
+    },
+    "setupFiles": [
+      "<rootDir>/test/setup.js"
+    ]
   }
 }
