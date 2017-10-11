@@ -15,6 +15,11 @@
     <img src="https://img.shields.io/npm/v/@demiazz/fluxxor.svg?style=flat-square"
       alt="NPM version" />
   </a>
+  <!-- Build Status -->
+  <a href="https://travis-ci.org/demiazz/lighty">
+    <img src="https://img.shields.io/travis/demiazz/lighty.svg?style=flat-square"
+      alt="Build Status" />
+  </a>
   <!-- License -->
   <a href="https://github.com/demiazz/fluxxor/blob/master/LICENSE">
     <img src="https://img.shields.io/npm/l/@demiazz/fluxxor.svg?style=flat-square"
