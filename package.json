@@ -1,5 +1,5 @@
 {
-  "name": "fluxxor",
+  "name": "@demiazz/fluxxor",
   "version": "1.7.3",
   "description": "Flux architecture tools for React",
   "license": "MIT",
@@ -12,8 +12,8 @@
     "url": "https://github.com/demiazz/fluxxor"
   },
   "author": {
-    "name": "Michelle Tilley",
-    "email": "michelle@michelletilley.net"
+    "name": "Alexey Plutalov",
+    "email": "demiazz.py@gmail.com"
   },
   "keywords": [
     "react",
