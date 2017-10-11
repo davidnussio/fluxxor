@@ -4,7 +4,7 @@ import React from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { renderIntoDocument } from "react-dom/test-utils";
 
-import Fluxxor from "../";
+import Fluxxor from "../src";
 
 const Store = Fluxxor.createStore({
   actions: {

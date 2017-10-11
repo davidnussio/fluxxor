@@ -1,4 +1,4 @@
-import Fluxxor from "../";
+import Fluxxor from "../src";
 
 describe("Store", () => {
   it("passes one object from constructor to initialize", done => {

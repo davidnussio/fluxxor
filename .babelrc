@@ -1,15 +1,19 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "node": "current"
-        },
-        "useBuiltIns": true,
-        "modules": "commonjs",
-      }
-    ],
-    "react"
-  ]
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            },
+            "useBuiltIns": true,
+            "modules": "commonjs",
+          }
+        ],
+        "react"
+      ]
+    }
+  }
 }

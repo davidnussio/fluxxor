@@ -1,4 +1,4 @@
-import Fluxxor from "../";
+import Fluxxor from "../src";
 
 describe("Dispatcher", () => {
   let store1;

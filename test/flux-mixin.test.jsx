@@ -6,7 +6,7 @@ import {
   renderIntoDocument
 } from "react-dom/test-utils";
 
-import Fluxxor from "../";
+import Fluxxor from "../src";
 
 describe("FluxMixin", () => {
   let warn;

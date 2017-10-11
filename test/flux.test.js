@@ -1,4 +1,4 @@
-import Fluxxor from "../";
+import Fluxxor from "../src";
 
 describe("Flux", () => {
   it("allows retrieval of stores added by constructor", () => {

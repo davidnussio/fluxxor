@@ -3,7 +3,7 @@ import React from "react";
 import { findDOMNode, unmountComponentAtNode } from "react-dom";
 import TestUtils from "react-dom/test-utils";
 
-import Fluxxor from "../";
+import Fluxxor from "../src";
 
 describe("StoreWatchMixin", () => {
   const FluxMixin = Fluxxor.FluxMixin();

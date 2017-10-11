@@ -2,17 +2,44 @@
   "name": "fluxxor",
   "version": "1.7.3",
   "description": "Flux architecture tools for React",
+  "license": "MIT",
+  "homepage": "https://github.com/demiazz/fluxxor",
+  "bugs": {
+    "url": "https://github.com/demiazz/fluxxor/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BinaryMuse/fluxxor.git"
+    "url": "https://github.com/demiazz/fluxxor"
   },
+  "author": {
+    "name": "Michelle Tilley",
+    "email": "michelle@michelletilley.net"
+  },
+  "keywords": [
+    "react",
+    "flux"
+  ],
   "main": "lib/index.js",
+  "module": "lib-es/index.mjs",
+  "files": [
+    "dist/*.js",
+    "dist/*.map",
+    "lib/*.js",
+    "lib-es/*.mjs",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "test": "$(yarn bin)/jest",
+    "test:watch": "$(yarn bin)/jest --watch",
+    "test:ci": "$(yarn bin)/jest --coverage",
+    "build": "$(yarn bin)/brandon build",
+    "version": "yarn run build",
     "lint-staged": "$(yarn bin)/lint-staged"
   },
   "lint-staged": {
-    "lib/**/*.js": [
+    "src/**/*.js": [
       "prettier --write",
       "eslint",
       "git add"
@@ -26,38 +53,31 @@
   "pre-commit": [
     "lint-staged"
   ],
-  "keywords": [
-    "react",
-    "flux"
+  "browserslist": [
+    "last 3 Chrome major versions",
+    "last 3 Firefox major versions",
+    "last 3 Edge major versions",
+    "last 2 Explorer major versions",
+    "last 3 Safari major versions",
+    "last 3 iOS major versions"
   ],
-  "author": "Michelle Tilley <michelle@michelletilley.net>",
-  "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
-    "babel-jest": "^21.2.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
-    "create-react-class": "^15.6.2",
-    "eslint": "^4.8.0",
-    "eslint-config-airbnb": "^16.0.0",
-    "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-react": "^7.4.0",
-    "jest": "^21.2.1",
-    "lint-staged": "^4.2.3",
-    "pre-commit": "^1.2.2",
-    "prettier": "^1.7.4",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "@demiazz/brandon": "2.0.0",
+    "babel-jest": "21.2.0",
+    "babel-preset-react": "6.24.1",
+    "create-react-class": "15.6.2",
+    "eslint-config-airbnb": "16.0.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-react": "7.4.0",
+    "jest": "21.2.1",
+    "prop-types": "15.6.0",
+    "react": "16.0.0",
+    "react-dom": "16.0.0"
   },
   "dependencies": {
-    "eventemitter3": "^2.0.3",
-    "lodash": "^4.17.4",
-    "object-path": "^0.11.4"
+    "eventemitter3": "2.0.3",
+    "lodash": "4.17.4",
+    "object-path": "0.11.4"
   },
   "jest": {
     "moduleFileExtensions": [
