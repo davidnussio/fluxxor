@@ -1,3 +1,14 @@
+Version 2.0.0
+=============
+
+* Rewrite tests from `mocha` to `jest`
+* Test sources with `react` of 16 version
+* Generates CommonJS, ES6 and UMD modules
+* Rewrite code with ES6 syntax
+* Update dependencies
+* Use namespace `@demiazz`
+* Use `prop-types` as peer dependency
+
 Version 1.7.3
 =============
 
