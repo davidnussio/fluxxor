@@ -55,3 +55,7 @@ export function intersection(a, b) {
     return result;
   }, []);
 }
+
+export function isObject(value) {
+  return value != null && typeof value === "object";
+}
