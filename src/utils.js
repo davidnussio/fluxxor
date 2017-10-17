@@ -3,24 +3,33 @@ export function keys(object) {
 }
 
 export function eachKeyValue(object, callback) {
-  keys(object).forEach(key => {
+  const objectKeys = keys(object);
+
+  for (let i = 0; i < objectKeys.length; i += 1) {
+    const key = objectKeys[i];
+
     callback(key, object[key]);
-  });
+  }
 }
 
 export function mapValues(object, callback) {
-  return keys(object).reduce((result, key) => {
-    result[key] = callback(object[key]);
+  const objectKeys = keys(object);
+  const result = {};
 
-    return result;
-  }, {});
+  for (let i = 0; i < objectKeys.length; i += 1) {
+    const key = objectKeys[i];
+
+    result[key] = callback(object[key]);
+  }
+
+  return result;
 }
 
 export function findKey(object, predicate) {
   const objectKeys = keys(object);
 
-  while (objectKeys.length) {
-    const key = objectKeys.shift();
+  for (let i = 0; i < objectKeys.length; i += 1) {
+    const key = objectKeys[i];
 
     if (predicate(object[key])) {
       return key;
@@ -31,29 +40,59 @@ export function findKey(object, predicate) {
 }
 
 export function unique(array) {
-  return array.reduce((result, value) => {
-    if (result.indexOf(value) === -1) {
+  if (array.length === 0) {
+    return [];
+  }
+
+  const result = [];
+  const cache = {};
+
+  for (let i = 0; i < array.length; i += 1) {
+    const value = array[i];
+
+    if (!{}.hasOwnProperty.call(cache, value)) {
+      cache[value] = true;
+
       result.push(value);
     }
+  }
 
-    return result;
-  }, []);
+  return result;
 }
 
 export function intersection(a, b) {
-  const ab = [].concat(a, b);
+  if (a.length === 0 || b.length === 0) {
+    return [];
+  }
 
-  return ab.reduce((result, value) => {
-    if (
-      result.indexOf(value) === -1 &&
-      a.indexOf(value) !== -1 &&
-      b.indexOf(value) !== -1
-    ) {
-      result.push(value);
+  const x = a.length > b.length ? b : a;
+  const y = a.length > b.length ? a : b;
+  const hitsMap = {};
+
+  for (let i = 0; i < x.length; i += 1) {
+    hitsMap[x[i]] = false;
+  }
+
+  for (let i = 0; i < y.length; i += 1) {
+    const hit = y[i];
+
+    if (hitsMap[hit] === false) {
+      hitsMap[hit] = true;
     }
+  }
 
-    return result;
-  }, []);
+  const result = [];
+  const hits = keys(hitsMap);
+
+  for (let i = 0; i < hits.length; i += 1) {
+    const hit = hits[i];
+
+    if (hitsMap[hit]) {
+      result.push(hit);
+    }
+  }
+
+  return result;
 }
 
 export function isObject(value) {
