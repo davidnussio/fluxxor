@@ -2,7 +2,6 @@ import _clone from "lodash/clone";
 import _mapValues from "lodash/mapValues";
 import _intersection from "lodash/intersection";
 import _map from "lodash/map";
-import _each from "lodash/forEach";
 import _size from "lodash/size";
 import _findKey from "lodash/findKey";
 import _uniq from "lodash/uniq";
@@ -121,7 +120,7 @@ class Dispatcher {
       );
     }
 
-    _each(removeFromDispatchQueue, key => {
+    removeFromDispatchQueue.forEach(key => {
       delete this.waitingToDispatch[key];
     });
 
@@ -153,16 +152,16 @@ class Dispatcher {
       throw new Error(`${waitingStoreName} already waiting on stores`);
     }
 
-    _each(stores, storeName => {
-      const storeDispatch = this.currentDispatch[storeName];
+    stores.forEach(name => {
+      const storeDispatch = this.currentDispatch[name];
 
-      if (!this.stores[storeName]) {
-        throw new Error(`Cannot wait for non-existing store ${storeName}`);
+      if (!this.stores[name]) {
+        throw new Error(`Cannot wait for non-existing store ${name}`);
       }
 
       if (storeDispatch.waitingOn.indexOf(waitingStoreName) > -1) {
         throw new Error(
-          `Circular wait detected between ${waitingStoreName} and ${storeName}`
+          `Circular wait detected between ${waitingStoreName} and ${name}`
         );
       }
     });

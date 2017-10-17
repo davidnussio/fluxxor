@@ -1,6 +1,4 @@
 import EventEmitter from "eventemitter3";
-import _each from "lodash/forEach";
-import _reduce from "lodash/reduce";
 import _isFunction from "lodash/isFunction";
 import objectPath from "object-path";
 
@@ -73,22 +71,18 @@ class Flux extends EventEmitter {
       args = args[0]; // eslint-disable-line
     }
 
-    const leadingPaths = _reduce(
-      args,
-      (acc, next) => {
-        if (acc) {
-          const nextPath = acc[acc.length - 1].concat([next]);
+    const leadingPaths = args.reduce((acc, next) => {
+      if (acc) {
+        const nextPath = acc[acc.length - 1].concat([next]);
 
-          return acc.concat([nextPath]);
-        }
+        return acc.concat([nextPath]);
+      }
 
-        return [[next]];
-      },
-      null
-    );
+      return [[next]];
+    }, null);
 
     // Detect trying to replace a function at any point in the path
-    _each(leadingPaths, path => {
+    leadingPaths.forEach(path => {
       if (_isFunction(objectPath.get(this.actions, path))) {
         throw new Error(`An action named ${args.join(".")} already exists`);
       }
