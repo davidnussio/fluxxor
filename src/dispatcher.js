@@ -2,7 +2,6 @@ import _clone from "lodash/clone";
 import _mapValues from "lodash/mapValues";
 import _forOwn from "lodash/forOwn";
 import _intersection from "lodash/intersection";
-import _keys from "lodash/keys";
 import _map from "lodash/map";
 import _each from "lodash/forEach";
 import _size from "lodash/size";
@@ -80,7 +79,7 @@ class Dispatcher {
       dispatch = this.currentDispatch[key];
       canBeDispatchedTo =
         !dispatch.waitingOn.length ||
-        !_intersection(dispatch.waitingOn, _keys(this.waitingToDispatch))
+        !_intersection(dispatch.waitingOn, Object.keys(this.waitingToDispatch))
           .length;
 
       if (canBeDispatchedTo) {
@@ -114,8 +113,13 @@ class Dispatcher {
       }
     });
 
-    if (_keys(this.waitingToDispatch).length && !dispatchedThisLoop.length) {
-      const storesWithCircularWaits = _keys(this.waitingToDispatch).join(", ");
+    if (
+      Object.keys(this.waitingToDispatch).length &&
+      !dispatchedThisLoop.length
+    ) {
+      const storesWithCircularWaits = Object.keys(this.waitingToDispatch).join(
+        ", "
+      );
 
       throw new Error(
         `Indirect circular wait detected among: ${storesWithCircularWaits}`
