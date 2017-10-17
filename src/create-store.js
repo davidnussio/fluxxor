@@ -1,7 +1,5 @@
-import _isFunction from "lodash/isFunction";
-
 import Store from "./store";
-import { eachKeyValue } from "./utils";
+import { eachKeyValue, isFunction } from "./utils";
 
 const RESERVED_KEYS = ["flux", "waitFor"];
 
@@ -23,7 +21,7 @@ function createStore(spec) {
           this.bindActions(value);
         } else if (key === "initialize") {
           // do nothing
-        } else if (_isFunction(value)) {
+        } else if (isFunction(value)) {
           this[key] = value.bind(this);
         } else {
           this[key] = value;

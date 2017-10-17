@@ -1,9 +1,8 @@
 import EventEmitter from "eventemitter3";
-import _isFunction from "lodash/isFunction";
 import objectPath from "object-path";
 
 import Dispatcher from "./dispatcher";
-import { eachKeyValue } from "./utils";
+import { eachKeyValue, isFunction } from "./utils";
 
 function findLeaves(obj, path, callback) {
   path = path || [];
@@ -13,7 +12,7 @@ function findLeaves(obj, path, callback) {
   }
 
   eachKeyValue(obj, (key, value) => {
-    if (_isFunction(value)) {
+    if (isFunction(value)) {
       callback(path.concat(key), value);
     } else {
       findLeaves(value, path.concat(key), callback);
@@ -61,7 +60,7 @@ class Flux extends EventEmitter {
       );
     }
 
-    if (!_isFunction(args[args.length - 1])) {
+    if (!isFunction(args[args.length - 1])) {
       throw new Error("The last argument to addAction must be a function");
     }
 
@@ -83,7 +82,7 @@ class Flux extends EventEmitter {
 
     // Detect trying to replace a function at any point in the path
     leadingPaths.forEach(path => {
-      if (_isFunction(objectPath.get(this.actions, path))) {
+      if (isFunction(objectPath.get(this.actions, path))) {
         throw new Error(`An action named ${args.join(".")} already exists`);
       }
     });

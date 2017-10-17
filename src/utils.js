@@ -59,3 +59,7 @@ export function intersection(a, b) {
 export function isObject(value) {
   return value != null && typeof value === "object";
 }
+
+export function isFunction(value) {
+  return value && {}.toString.call(value).match(/.*Function\]$/);
+}

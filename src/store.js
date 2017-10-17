@@ -1,7 +1,6 @@
 import EventEmitter from "eventemitter3";
-import _isFunction from "lodash/isFunction";
 
-import { eachKeyValue, isObject } from "./utils";
+import { eachKeyValue, isFunction, isObject } from "./utils";
 
 class Store extends EventEmitter {
   constructor(dispatcher) {
@@ -18,9 +17,9 @@ class Store extends EventEmitter {
       return false;
     }
 
-    if (_isFunction(handler)) {
+    if (isFunction(handler)) {
       handler.call(this, action.payload, action.type);
-    } else if (handler && _isFunction(this[handler])) {
+    } else if (handler && isFunction(this[handler])) {
       this[handler].call(this, action.payload, action.type);
     } else {
       throw new Error(
