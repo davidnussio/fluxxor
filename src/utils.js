@@ -61,5 +61,19 @@ export function isObject(value) {
 }
 
 export function isFunction(value) {
-  return value && {}.toString.call(value).match(/.*Function\]$/);
+  if (value == null) {
+    return false;
+  }
+
+  const tag = {}.toString.call(value);
+
+  if (tag.substring(tag.length - 9) === "Function]") {
+    return true;
+  }
+
+  if (tag.substring(tag.length - 6) === "Proxy]") {
+    return true;
+  }
+
+  return false;
 }
