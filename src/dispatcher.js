@@ -8,6 +8,8 @@ import _size from "lodash/size";
 import _findKey from "lodash/findKey";
 import _uniq from "lodash/uniq";
 
+import { keys, eachKeyValue } from "./utils";
+
 function defaultDispatchInterceptor(action, dispatch) {
   dispatch(action);
 }
@@ -22,8 +24,8 @@ class Dispatcher {
     this._boundDispatch = this._dispatch.bind(this);
 
     if (stores) {
-      Object.keys(stores).forEach(storeName => {
-        this.addStore(storeName, stores[storeName]);
+      eachKeyValue(stores, (name, store) => {
+        this.addStore(name, store);
       });
     }
   }
@@ -79,8 +81,7 @@ class Dispatcher {
       dispatch = this.currentDispatch[key];
       canBeDispatchedTo =
         !dispatch.waitingOn.length ||
-        !_intersection(dispatch.waitingOn, Object.keys(this.waitingToDispatch))
-          .length;
+        !_intersection(dispatch.waitingOn, keys(this.waitingToDispatch)).length;
 
       if (canBeDispatchedTo) {
         if (dispatch.waitCallback) {
@@ -113,13 +114,8 @@ class Dispatcher {
       }
     });
 
-    if (
-      Object.keys(this.waitingToDispatch).length &&
-      !dispatchedThisLoop.length
-    ) {
-      const storesWithCircularWaits = Object.keys(this.waitingToDispatch).join(
-        ", "
-      );
+    if (keys(this.waitingToDispatch).length && !dispatchedThisLoop.length) {
+      const storesWithCircularWaits = keys(this.waitingToDispatch).join(", ");
 
       throw new Error(
         `Indirect circular wait detected among: ${storesWithCircularWaits}`

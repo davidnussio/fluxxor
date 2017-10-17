@@ -5,6 +5,7 @@ import _isFunction from "lodash/isFunction";
 import objectPath from "object-path";
 
 import Dispatcher from "./dispatcher";
+import { eachKeyValue } from "./utils";
 
 function findLeaves(obj, path, callback) {
   path = path || [];
@@ -13,11 +14,11 @@ function findLeaves(obj, path, callback) {
     return;
   }
 
-  Object.keys(obj).forEach(key => {
-    if (_isFunction(obj[key])) {
-      callback(path.concat(key), obj[key]);
+  eachKeyValue(obj, (key, value) => {
+    if (_isFunction(value)) {
+      callback(path.concat(key), value);
     } else {
-      findLeaves(obj[key], path.concat(key), callback);
+      findLeaves(value, path.concat(key), callback);
     }
   });
 }
@@ -125,8 +126,8 @@ class Flux extends EventEmitter {
       return;
     }
 
-    Object.keys(stores).forEach(storeName => {
-      this.addStore(storeName, stores[storeName]);
+    eachKeyValue(stores, (name, store) => {
+      this.addStore(name, store);
     });
   }
 

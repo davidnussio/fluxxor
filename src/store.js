@@ -2,6 +2,8 @@ import EventEmitter from "eventemitter3";
 import _isFunction from "lodash/isFunction";
 import _isObject from "lodash/isObject";
 
+import { eachKeyValue } from "./utils";
+
 class Store extends EventEmitter {
   constructor(dispatcher) {
     super();
@@ -45,8 +47,8 @@ class Store extends EventEmitter {
     if (actions.length === 1 && _isObject(actions[0])) {
       const [actionsMap] = actions;
 
-      Object.keys(actionsMap).forEach(actionName => {
-        bindAction(actionName, actionsMap[actionName]);
+      eachKeyValue(actionsMap, (name, action) => {
+        bindAction(name, action);
       });
     } else {
       for (let i = 0; i < actions.length; i += 2) {
