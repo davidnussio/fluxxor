@@ -1,5 +1,3 @@
-import _clone from "lodash/clone";
-
 import {
   eachKeyValue,
   findKey,
@@ -51,7 +49,7 @@ class Dispatcher {
       );
     }
 
-    this.waitingToDispatch = _clone(this.stores);
+    this.waitingToDispatch = Object.assign({}, this.stores);
 
     this.currentActionType = action.type;
     this.currentDispatch = mapValues(this.stores, () => ({
