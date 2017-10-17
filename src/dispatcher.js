@@ -2,7 +2,6 @@ import _clone from "lodash/clone";
 import _mapValues from "lodash/mapValues";
 import _intersection from "lodash/intersection";
 import _map from "lodash/map";
-import _size from "lodash/size";
 import _findKey from "lodash/findKey";
 import _uniq from "lodash/uniq";
 
@@ -17,7 +16,7 @@ class Dispatcher {
     this.stores = {};
     this.currentDispatch = null;
     this.currentActionType = null;
-    this.waitingToDispatch = [];
+    this.waitingToDispatch = {};
     this.dispatchInterceptor = defaultDispatchInterceptor;
     this._boundDispatch = this._dispatch.bind(this);
 
@@ -124,7 +123,7 @@ class Dispatcher {
       delete this.waitingToDispatch[key];
     });
 
-    if (_size(this.waitingToDispatch)) {
+    if (keys(this.waitingToDispatch).length) {
       this.doDispatchLoop(action);
     }
 
