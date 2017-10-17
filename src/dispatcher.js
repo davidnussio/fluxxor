@@ -77,34 +77,36 @@ class Dispatcher {
         !dispatch.waitingOn.length ||
         !_intersection(dispatch.waitingOn, keys(this.waitingToDispatch)).length;
 
-      if (canBeDispatchedTo) {
-        if (dispatch.waitCallback) {
-          const stores = dispatch.waitingOn.map(store => this.stores[store]);
+      if (!canBeDispatchedTo) {
+        return;
+      }
 
-          const fn = dispatch.waitCallback;
+      if (dispatch.waitCallback) {
+        const stores = dispatch.waitingOn.map(store => this.stores[store]);
 
-          dispatch.waitCallback = null;
-          dispatch.waitingOn = [];
-          dispatch.resolved = true;
+        const fn = dispatch.waitCallback;
 
-          fn(...stores);
+        dispatch.waitCallback = null;
+        dispatch.waitingOn = [];
+        dispatch.resolved = true;
 
+        fn(...stores);
+
+        wasHandled = true;
+      } else {
+        dispatch.resolved = true;
+
+        const handled = this.stores[key].__handleAction__(action);
+
+        if (handled) {
           wasHandled = true;
-        } else {
-          dispatch.resolved = true;
-
-          const handled = this.stores[key].__handleAction__(action);
-
-          if (handled) {
-            wasHandled = true;
-          }
         }
+      }
 
-        dispatchedThisLoop.push(key);
+      dispatchedThisLoop.push(key);
 
-        if (this.currentDispatch[key].resolved) {
-          removeFromDispatchQueue.push(key);
-        }
+      if (this.currentDispatch[key].resolved) {
+        removeFromDispatchQueue.push(key);
       }
     });
 
