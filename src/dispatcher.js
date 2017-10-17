@@ -1,11 +1,10 @@
 import _clone from "lodash/clone";
-import _mapValues from "lodash/mapValues";
 import _intersection from "lodash/intersection";
 import _map from "lodash/map";
 import _findKey from "lodash/findKey";
 import _uniq from "lodash/uniq";
 
-import { keys, eachKeyValue } from "./utils";
+import { eachKeyValue, keys, mapValues } from "./utils";
 
 function defaultDispatchInterceptor(action, dispatch) {
   dispatch(action);
@@ -52,7 +51,7 @@ class Dispatcher {
     this.waitingToDispatch = _clone(this.stores);
 
     this.currentActionType = action.type;
-    this.currentDispatch = _mapValues(this.stores, () => ({
+    this.currentDispatch = mapValues(this.stores, () => ({
       resolved: false,
       waitingOn: [],
       waitCallback: null

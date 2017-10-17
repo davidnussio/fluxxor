@@ -11,3 +11,11 @@ export function eachKeyValue(object, callback) {
     callback(key, object[key]);
   }
 }
+
+export function mapValues(object, callback) {
+  return keys(object).reduce((result, key) => {
+    result[key] = callback(object[key]);
+
+    return result;
+  }, {});
+}
