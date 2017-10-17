@@ -2,7 +2,6 @@ import EventEmitter from "eventemitter3";
 import _each from "lodash/forEach";
 import _reduce from "lodash/reduce";
 import _isFunction from "lodash/isFunction";
-import _isString from "lodash/isString";
 import objectPath from "object-path";
 
 import Dispatcher from "./dispatcher";
@@ -69,7 +68,7 @@ class Flux extends EventEmitter {
 
     const func = args.pop().bind(this.dispatchBinder);
 
-    if (!_isString(args[0])) {
+    if (typeof args[0] !== "string") {
       args = args[0]; // eslint-disable-line
     }
 
