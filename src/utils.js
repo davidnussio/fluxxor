@@ -29,3 +29,13 @@ export function findKey(object, predicate) {
 
   return undefined;
 }
+
+export function unique(array) {
+  return array.reduce((result, value) => {
+    if (result.indexOf(value) === -1) {
+      result.push(value);
+    }
+
+    return result;
+  }, []);
+}

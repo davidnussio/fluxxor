@@ -1,8 +1,7 @@
 import _clone from "lodash/clone";
 import _intersection from "lodash/intersection";
-import _uniq from "lodash/uniq";
 
-import { eachKeyValue, findKey, keys, mapValues } from "./utils";
+import { eachKeyValue, findKey, keys, mapValues, unique } from "./utils";
 
 function defaultDispatchInterceptor(action, dispatch) {
   dispatch(action);
@@ -165,7 +164,7 @@ class Dispatcher {
     });
 
     dispatch.resolved = false;
-    dispatch.waitingOn = _uniq(dispatch.waitingOn.concat(stores));
+    dispatch.waitingOn = unique(dispatch.waitingOn.concat(stores));
     dispatch.waitCallback = fn;
   }
 
