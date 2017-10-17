@@ -1,7 +1,13 @@
 import _clone from "lodash/clone";
-import _intersection from "lodash/intersection";
 
-import { eachKeyValue, findKey, keys, mapValues, unique } from "./utils";
+import {
+  eachKeyValue,
+  findKey,
+  intersection,
+  keys,
+  mapValues,
+  unique
+} from "./utils";
 
 function defaultDispatchInterceptor(action, dispatch) {
   dispatch(action);
@@ -74,7 +80,7 @@ class Dispatcher {
       dispatch = this.currentDispatch[key];
       canBeDispatchedTo =
         !dispatch.waitingOn.length ||
-        !_intersection(dispatch.waitingOn, keys(this.waitingToDispatch)).length;
+        !intersection(dispatch.waitingOn, keys(this.waitingToDispatch)).length;
 
       if (!canBeDispatchedTo) {
         return;

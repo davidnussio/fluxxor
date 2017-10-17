@@ -39,3 +39,19 @@ export function unique(array) {
     return result;
   }, []);
 }
+
+export function intersection(a, b) {
+  const ab = [].concat(a, b);
+
+  return ab.reduce((result, value) => {
+    if (
+      result.indexOf(value) === -1 &&
+      a.indexOf(value) !== -1 &&
+      b.indexOf(value) !== -1
+    ) {
+      result.push(value);
+    }
+
+    return result;
+  }, []);
+}
