@@ -20,12 +20,12 @@
     "flux"
   ],
   "main": "lib/index.js",
-  "module": "lib-es/index.mjs",
+  "module": "lib-es/index.js",
   "files": [
     "dist/*.js",
     "dist/*.map",
     "lib/*.js",
-    "lib-es/*.mjs",
+    "lib-es/*.js",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
