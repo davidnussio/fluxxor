@@ -1,10 +1,8 @@
 import _clone from "lodash/clone";
 import _intersection from "lodash/intersection";
-import _map from "lodash/map";
-import _findKey from "lodash/findKey";
 import _uniq from "lodash/uniq";
 
-import { eachKeyValue, keys, mapValues } from "./utils";
+import { eachKeyValue, findKey, keys, mapValues } from "./utils";
 
 function defaultDispatchInterceptor(action, dispatch) {
   dispatch(action);
@@ -81,7 +79,7 @@ class Dispatcher {
 
       if (canBeDispatchedTo) {
         if (dispatch.waitCallback) {
-          const stores = _map(dispatch.waitingOn, store => this.stores[store]);
+          const stores = dispatch.waitingOn.map(store => this.stores[store]);
 
           const fn = dispatch.waitCallback;
 
@@ -138,7 +136,7 @@ class Dispatcher {
       throw new Error("Cannot wait unless an action is being dispatched");
     }
 
-    const waitingStoreName = _findKey(this.stores, val => val === store);
+    const waitingStoreName = findKey(this.stores, val => val === store);
 
     if (stores.indexOf(waitingStoreName) > -1) {
       throw new Error("A store cannot wait on itself");

@@ -15,3 +15,17 @@ export function mapValues(object, callback) {
     return result;
   }, {});
 }
+
+export function findKey(object, predicate) {
+  const objectKeys = keys(object);
+
+  while (objectKeys.length) {
+    const key = objectKeys.shift();
+
+    if (predicate(object[key])) {
+      return key;
+    }
+  }
+
+  return undefined;
+}
