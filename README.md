@@ -40,3 +40,14 @@
 
   <p>Updated version for support legacy project. Use modern tools for new projects instead.</p>
 </div>
+
+<hr />
+
+## Roadmap
+
+- [ ] remove `lodash`
+- [ ] replace `eventemitter3` with `nanoevents`
+- [ ] replace `object-path` with internal utils (eliminate unnessesary dependencies)
+- [ ] update build with supporting of UMD, CommonJS and ES6 modules (supports by Webpack and Rollup)
+- [ ] fix specs around batched update
+- [ ] replace mixins with classes
