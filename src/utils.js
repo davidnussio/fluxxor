@@ -3,13 +3,9 @@ export function keys(object) {
 }
 
 export function eachKeyValue(object, callback) {
-  const objectKeys = keys(object);
-
-  while (objectKeys.length) {
-    const key = objectKeys.shift();
-
+  keys(object).forEach(key => {
     callback(key, object[key]);
-  }
+  });
 }
 
 export function mapValues(object, callback) {
