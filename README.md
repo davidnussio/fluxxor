@@ -48,6 +48,6 @@
 - [ ] remove `lodash`
 - [ ] replace `eventemitter3` with `nanoevents`
 - [ ] replace `object-path` with internal utils (eliminate unnessesary dependencies)
-- [ ] update build with supporting of UMD, CommonJS and ES6 modules (supports by Webpack and Rollup)
+- [x] update build with supporting of UMD, CommonJS and ES6 modules (supports by Webpack and Rollup)
 - [ ] fix specs around batched update
 - [ ] replace mixins with classes
