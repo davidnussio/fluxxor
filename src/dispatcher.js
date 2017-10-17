@@ -1,6 +1,5 @@
 import _clone from "lodash/clone";
 import _mapValues from "lodash/mapValues";
-import _forOwn from "lodash/forOwn";
 import _intersection from "lodash/intersection";
 import _map from "lodash/map";
 import _each from "lodash/forEach";
@@ -77,7 +76,7 @@ class Dispatcher {
     let canBeDispatchedTo;
     let wasHandled = false;
 
-    _forOwn(this.waitingToDispatch, (value, key) => {
+    eachKeyValue(this.waitingToDispatch, key => {
       dispatch = this.currentDispatch[key];
       canBeDispatchedTo =
         !dispatch.waitingOn.length ||
