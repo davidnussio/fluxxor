@@ -17,10 +17,12 @@ function createStore(spec) {
       super();
 
       eachKeyValue(spec, (key, value) => {
+        if (key === "initialize") {
+          return;
+        }
+
         if (key === "actions") {
           this.bindActions(value);
-        } else if (key === "initialize") {
-          // do nothing
         } else if (isFunction(value)) {
           this[key] = value.bind(this);
         } else {
