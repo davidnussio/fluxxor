@@ -16,8 +16,8 @@
       alt="NPM version" />
   </a>
   <!-- Build Status -->
-  <a href="https://travis-ci.org/demiazz/lighty">
-    <img src="https://img.shields.io/travis/demiazz/lighty.svg?style=flat-square"
+  <a href="https://travis-ci.org/demiazz/fluxxor">
+    <img src="https://img.shields.io/travis/demiazz/fluxxor.svg?style=flat-square"
       alt="Build Status" />
   </a>
   <!-- License -->
@@ -49,5 +49,5 @@
 - [ ] replace `eventemitter3` with `nanoevents`
 - [ ] replace `object-path` with internal utils (eliminate unnessesary dependencies)
 - [x] update build with supporting of UMD, CommonJS and ES6 modules (supports by Webpack and Rollup)
-- [ ] fix specs around batched update
+- [x] fix specs around batched update
 - [ ] replace mixins with classes
