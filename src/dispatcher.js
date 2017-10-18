@@ -85,8 +85,7 @@ class Dispatcher {
       }
 
       if (dispatch.waitCallback) {
-        const stores = dispatch.waitingOn.map(store => this.stores[store]);
-
+        const stores = dispatch.waitingOn.map(name => this.stores[name]);
         const fn = dispatch.waitCallback;
 
         dispatch.waitCallback = null;
