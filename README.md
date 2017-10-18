@@ -50,4 +50,4 @@
 - [ ] replace `object-path` with internal utils (eliminate unnessesary dependencies)
 - [x] update build with supporting of UMD, CommonJS and ES6 modules (supports by Webpack and Rollup)
 - [x] fix specs around batched update
-- [ ] replace mixins with classes
+- [ ] replace mixins with `react-redux` like API
