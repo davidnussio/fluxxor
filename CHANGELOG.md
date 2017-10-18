@@ -1,3 +1,10 @@
+Version 2.1.0
+=============
+
+* Remove `lodash` from dependencies
+* Fix tests
+* Fix package build
+
 Version 2.0.0
 =============
 
