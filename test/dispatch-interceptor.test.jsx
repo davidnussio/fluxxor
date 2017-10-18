@@ -1,7 +1,6 @@
 import createClass from "create-react-class";
 import React from "react";
-// eslint-disable-next-line
-import { unstable_batchedUpdates } from "react-dom";
+import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
 import { renderIntoDocument } from "react-dom/test-utils";
 
 import Fluxxor from "../src";
@@ -19,16 +18,15 @@ const Store = Fluxxor.createStore({
 
   handleActivate() {
     this.activated = true;
-
     this.emit("change");
   },
 
   handleLoadInitialValue() {
     this.value = "testing";
-
     this.emit("change");
   }
 });
+
 const actions = {
   activate(callback) {
     setTimeout(() => {
@@ -36,8 +34,8 @@ const actions = {
         this.dispatch("ACTIVATE");
 
         callback();
-      } catch (error) {
-        callback(error);
+      } catch (ex) {
+        callback(ex);
       }
     });
   },
@@ -108,16 +106,16 @@ describe("Dispatch interceptor", () => {
   it("doesn't intercept by default", done => {
     renderIntoDocument(<Application flux={flux} />);
 
-    flux.actions.activate(err => {
-      expect(err).toMatch(/dispatch.*another action/);
+    flux.actions.activate(error => {
+      expect(error.message).toMatch(/dispatch.*another action/);
 
       done();
     });
   });
 
-  it("allows intercepting", done => {
+ it("allows intercepting", done => {
     flux.setDispatchInterceptor((action, dispatch) => {
-      unstable_batchedUpdates(() => {
+      batchedUpdates(() => {
         dispatch(action);
       });
     });
@@ -137,7 +135,7 @@ describe("Dispatch interceptor", () => {
     flux.setDispatchInterceptor((action, dispatch) => {
       dispatches += 1;
 
-      unstable_batchedUpdates(() => {
+      batchedUpdates(() => {
         dispatch(action);
       });
     });
