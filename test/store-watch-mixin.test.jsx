@@ -6,12 +6,9 @@ import TestUtils from "react-dom/test-utils";
 import Fluxxor from "../src";
 
 describe("StoreWatchMixin", () => {
-  const FluxMixin = Fluxxor.FluxMixin();
-  const { StoreWatchMixin } = Fluxxor;
-
   it("watches for store change events until the component is unmounted", done => {
     const SwappedComponent = createClass({
-      mixins: [FluxMixin, StoreWatchMixin("Store1")],
+      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("Store1")],
 
       getStateFromFlux() {
         return {
@@ -30,7 +27,7 @@ describe("StoreWatchMixin", () => {
       }
     });
     const Wrapper = createClass({
-      mixins: [FluxMixin, StoreWatchMixin("Store1", "Store2")],
+      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("Store1", "Store2")],
 
       getStateFromFlux() {
         this.getStateCalls = this.getStateCalls || 0;
@@ -128,7 +125,7 @@ describe("StoreWatchMixin", () => {
   it("throws when attempting to mix in the function directly", () => {
     expect(() => {
       const MixedComponent = createClass({
-        mixins: [StoreWatchMixin],
+        mixins: [Fluxxor.StoreWatchMixin],
 
         render() {
           return <div />;

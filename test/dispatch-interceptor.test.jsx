@@ -57,7 +57,7 @@ describe("Dispatch interceptor", () => {
     Application = createClass({
       displayName: "Application",
 
-      mixins: [Fluxxor.FluxMixin(), Fluxxor.StoreWatchMixin("store")],
+      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("store")],
 
       getStateFromFlux() {
         return {
@@ -75,7 +75,7 @@ describe("Dispatch interceptor", () => {
     ComponentA = createClass({
       displayName: "ComponentA",
 
-      mixins: [Fluxxor.FluxMixin()],
+      mixins: [Fluxxor.FluxMixin],
 
       render() {
         return <div />;
@@ -85,7 +85,7 @@ describe("Dispatch interceptor", () => {
     ComponentB = createClass({
       displayName: "ComponentB",
 
-      mixins: [Fluxxor.FluxMixin(), Fluxxor.StoreWatchMixin("store")],
+      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("store")],
 
       getStateFromFlux() {
         return {

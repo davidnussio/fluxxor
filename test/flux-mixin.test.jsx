@@ -24,7 +24,7 @@ describe("FluxMixin", () => {
     const GreatGrandchild = createClass({
       displayName: "GreatGrandchild",
 
-      mixins: [Fluxxor.FluxMixin()],
+      mixins: [Fluxxor.FluxMixin],
 
       render() {
         return <div />;
@@ -33,7 +33,7 @@ describe("FluxMixin", () => {
     const Grandchild = createClass({
       displayName: "Grandchild",
 
-      mixins: [Fluxxor.FluxMixin()],
+      mixins: [Fluxxor.FluxMixin],
 
       render() {
         return <GreatGrandchild />;
@@ -49,7 +49,7 @@ describe("FluxMixin", () => {
     const Parent = createClass({
       displayName: "Parent",
 
-      mixins: [Fluxxor.FluxMixin()],
+      mixins: [Fluxxor.FluxMixin],
 
       render() {
         return <Child />;
@@ -77,7 +77,7 @@ describe("FluxMixin", () => {
     const Component = createClass({
       displayName: "MyComponent",
 
-      mixins: [Fluxxor.FluxMixin()],
+      mixins: [Fluxxor.FluxMixin],
 
       render() {
         return React.DOM.div();
@@ -87,29 +87,5 @@ describe("FluxMixin", () => {
     expect(() => {
       renderToString(<Component />);
     }).toThrow(/Could not find flux.*MyComponent/);
-  });
-
-  it("throws when attempting to mix in the function directly", () => {
-    expect(() => {
-      createClass({
-        mixins: [Fluxxor.FluxMixin],
-
-        render() {
-          return <div />;
-        }
-      });
-    }).toThrow(/attempting to use a component class or function as a mixin/);
-  });
-
-  it("throws when attempting to mix in the child function directly", () => {
-    expect(() => {
-      createClass({
-        mixins: [Fluxxor.FluxMixin],
-
-        render() {
-          return <div />;
-        }
-      });
-    }).toThrow(/attempting to use a component class or function as a mixin/);
   });
 });
