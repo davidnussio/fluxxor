@@ -33,7 +33,7 @@ describe("FluxMixin", () => {
     const Grandchild = createClass({
       displayName: "Grandchild",
 
-      mixins: [Fluxxor.FluxChildMixin()],
+      mixins: [Fluxxor.FluxMixin()],
 
       render() {
         return <GreatGrandchild />;
@@ -101,29 +101,10 @@ describe("FluxMixin", () => {
     }).toThrow(/attempting to use a component class or function as a mixin/);
   });
 
-  it("gives a deprecation warning when using FluxChildMixin", () => {
-    const Component = createClass({
-      displayName: "MyComponent",
-
-      mixins: [Fluxxor.FluxChildMixin()],
-
-      render() {
-        return <div />;
-      }
-    });
-
-    renderToString(<Component />);
-
-    expect(warn).toHaveBeenCalledTimes(1);
-    expect(warn.mock.calls[0][0]).toMatch(
-      /FluxChildMixin.*MyComponent.*deprecated/
-    );
-  });
-
   it("throws when attempting to mix in the child function directly", () => {
     expect(() => {
       createClass({
-        mixins: [Fluxxor.FluxChildMixin],
+        mixins: [Fluxxor.FluxMixin],
 
         render() {
           return <div />;
