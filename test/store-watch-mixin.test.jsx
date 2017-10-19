@@ -3,12 +3,12 @@ import React from "react";
 import { findDOMNode, unmountComponentAtNode } from "react-dom";
 import TestUtils from "react-dom/test-utils";
 
-import Fluxxor from "../src";
+import { Flux, FluxMixin, StoreWatchMixin, createStore } from "../src";
 
 describe("StoreWatchMixin", () => {
   it("watches for store change events until the component is unmounted", done => {
     const SwappedComponent = createClass({
-      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("Store1")],
+      mixins: [FluxMixin, StoreWatchMixin("Store1")],
 
       getStateFromFlux() {
         return {
@@ -27,7 +27,7 @@ describe("StoreWatchMixin", () => {
       }
     });
     const Wrapper = createClass({
-      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("Store1", "Store2")],
+      mixins: [FluxMixin, StoreWatchMixin("Store1", "Store2")],
 
       getStateFromFlux() {
         this.getStateCalls = this.getStateCalls || 0;
@@ -60,7 +60,7 @@ describe("StoreWatchMixin", () => {
         );
       }
     });
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -90,7 +90,7 @@ describe("StoreWatchMixin", () => {
         this.dispatch("ACTION", {});
       }
     };
-    const flux = new Fluxxor.Flux(stores, actions);
+    const flux = new Flux(stores, actions);
     const tree = TestUtils.renderIntoDocument(<Wrapper flux={flux} />);
 
     expect(tree.getStateCalls).toBe(1);
@@ -125,7 +125,7 @@ describe("StoreWatchMixin", () => {
   it("throws when attempting to mix in the function directly", () => {
     expect(() => {
       const MixedComponent = createClass({
-        mixins: [Fluxxor.StoreWatchMixin],
+        mixins: [StoreWatchMixin],
 
         render() {
           return <div />;

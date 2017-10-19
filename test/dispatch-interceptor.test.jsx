@@ -3,9 +3,9 @@ import React from "react";
 import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
 import { renderIntoDocument } from "react-dom/test-utils";
 
-import Fluxxor from "../src";
+import { Flux, FluxMixin, StoreWatchMixin, createStore } from "../src";
 
-const Store = Fluxxor.createStore({
+const Store = createStore({
   actions: {
     ACTIVATE: "handleActivate",
     LOAD_INITIAL_VALUE: "handleLoadInitialValue"
@@ -52,12 +52,12 @@ describe("Dispatch interceptor", () => {
   let ComponentB;
 
   beforeEach(() => {
-    flux = new Fluxxor.Flux({ store: new Store() }, actions);
+    flux = new Flux({ store: new Store() }, actions);
 
     Application = createClass({
       displayName: "Application",
 
-      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("store")],
+      mixins: [FluxMixin, StoreWatchMixin("store")],
 
       getStateFromFlux() {
         return {
@@ -75,7 +75,7 @@ describe("Dispatch interceptor", () => {
     ComponentA = createClass({
       displayName: "ComponentA",
 
-      mixins: [Fluxxor.FluxMixin],
+      mixins: [FluxMixin],
 
       render() {
         return <div />;
@@ -85,7 +85,7 @@ describe("Dispatch interceptor", () => {
     ComponentB = createClass({
       displayName: "ComponentB",
 
-      mixins: [Fluxxor.FluxMixin, Fluxxor.StoreWatchMixin("store")],
+      mixins: [FluxMixin, StoreWatchMixin("store")],
 
       getStateFromFlux() {
         return {

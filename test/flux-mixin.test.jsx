@@ -6,7 +6,7 @@ import {
   renderIntoDocument
 } from "react-dom/test-utils";
 
-import Fluxxor from "../src";
+import { Flux, FluxMixin } from "../src";
 
 describe("FluxMixin", () => {
   let warn;
@@ -24,7 +24,7 @@ describe("FluxMixin", () => {
     const GreatGrandchild = createClass({
       displayName: "GreatGrandchild",
 
-      mixins: [Fluxxor.FluxMixin],
+      mixins: [FluxMixin],
 
       render() {
         return <div />;
@@ -33,7 +33,7 @@ describe("FluxMixin", () => {
     const Grandchild = createClass({
       displayName: "Grandchild",
 
-      mixins: [Fluxxor.FluxMixin],
+      mixins: [FluxMixin],
 
       render() {
         return <GreatGrandchild />;
@@ -49,13 +49,13 @@ describe("FluxMixin", () => {
     const Parent = createClass({
       displayName: "Parent",
 
-      mixins: [Fluxxor.FluxMixin],
+      mixins: [FluxMixin],
 
       render() {
         return <Child />;
       }
     });
-    const flux = new Fluxxor.Flux({}, {});
+    const flux = new Flux({}, {});
     const tree = renderIntoDocument(<Parent flux={flux} />);
 
     expect(tree.getFlux()).toBe(flux);
@@ -77,7 +77,7 @@ describe("FluxMixin", () => {
     const Component = createClass({
       displayName: "MyComponent",
 
-      mixins: [Fluxxor.FluxMixin],
+      mixins: [FluxMixin],
 
       render() {
         return React.DOM.div();

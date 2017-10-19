@@ -4,10 +4,4 @@ import FluxMixin from "./flux-mixin";
 import StoreWatchMixin from "./store-watch-mixin";
 import createStore from "./create-store";
 
-export default {
-  Dispatcher,
-  Flux,
-  FluxMixin,
-  StoreWatchMixin,
-  createStore
-};
+export { Dispatcher, Flux, FluxMixin, StoreWatchMixin, createStore };

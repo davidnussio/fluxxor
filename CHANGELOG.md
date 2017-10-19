@@ -1,3 +1,8 @@
+Version 4.0.0
+=============
+
+* Use granular ES6 exports
+
 Version 3.0.0
 =============
 

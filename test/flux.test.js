@@ -1,11 +1,11 @@
-import Fluxxor from "../src";
+import { Flux } from "../src";
 
 describe("Flux", () => {
   it("allows retrieval of stores added by constructor", () => {
     const store1 = {};
     const store2 = {};
     const stores = { Store1: store1, Store2: store2 };
-    const flux = new Fluxxor.Flux(stores, {});
+    const flux = new Flux(stores, {});
 
     expect(flux.store("Store1")).toBe(store1);
     expect(flux.store("Store2")).toBe(store2);
@@ -15,7 +15,7 @@ describe("Flux", () => {
     const store1 = {};
     const store2 = {};
     const stores = { Store1: store1, Store2: store2 };
-    const flux = new Fluxxor.Flux();
+    const flux = new Flux();
 
     flux.addStores(stores);
 
@@ -26,7 +26,7 @@ describe("Flux", () => {
   it("allows retrieval of stores added by addStore", () => {
     const store1 = {};
     const store2 = {};
-    const flux = new Fluxxor.Flux();
+    const flux = new Flux();
 
     flux.addStore("Store1", store1);
     flux.addStore("Store2", store2);
@@ -39,14 +39,14 @@ describe("Flux", () => {
     const store1 = {};
     const store2 = {};
     const store3 = {};
-    const flux = new Fluxxor.Flux({ store1, store2, store3 });
+    const flux = new Flux({ store1, store2, store3 });
 
     expect(flux.getAllStores()).toEqual({ store1, store2, store3 });
   });
 
   it("does not allow duplicate stores", () => {
     const store1 = {};
-    const flux = new Fluxxor.Flux();
+    const flux = new Flux();
 
     flux.addStore("Store1", store1);
 
@@ -60,7 +60,7 @@ describe("Flux", () => {
     const store1 = {};
     const store2 = {};
     const stores = { Store1: store1, Store2: store2 };
-    const flux = new Fluxxor.Flux(stores, {});
+    const flux = new Flux(stores, {});
 
     expect(store1.flux).toBe(flux);
     expect(store2.flux).toBe(flux);
@@ -72,7 +72,7 @@ describe("Flux", () => {
         this.dispatch("ABC", { val: 123 });
       }
     };
-    const flux = new Fluxxor.Flux({}, actions);
+    const flux = new Flux({}, actions);
     const action = { type: "ABC", payload: { val: 123 } };
 
     flux.dispatcher.dispatch = jest.fn();
@@ -91,7 +91,7 @@ describe("Flux", () => {
       }
     };
 
-    flux = new Fluxxor.Flux({}, actions);
+    flux = new Flux({}, actions);
     flux.actions.act();
   });
 
@@ -111,7 +111,7 @@ describe("Flux", () => {
         this.dispatch("action", { name: "e" });
       }
     };
-    const flux = new Fluxxor.Flux({}, actions);
+    const flux = new Flux({}, actions);
 
     flux.dispatcher.dispatch = jest.fn();
 
@@ -150,7 +150,7 @@ describe("Flux", () => {
         this.dispatch("action", { name: "e" });
       }
     };
-    const flux = new Fluxxor.Flux();
+    const flux = new Flux();
 
     flux.addActions(actions);
     flux.dispatcher.dispatch = jest.fn();
@@ -190,7 +190,7 @@ describe("Flux", () => {
         this.dispatch("action", { name: "e" });
       }
     };
-    const flux = new Fluxxor.Flux({}, actions);
+    const flux = new Flux({}, actions);
 
     flux.addAction("f", function action() {
       this.dispatch("action", { name: "f" });
@@ -239,7 +239,7 @@ describe("Flux", () => {
         }
       }
     };
-    const flux = new Fluxxor.Flux({}, actions);
+    const flux = new Flux({}, actions);
 
     expect(() => {
       flux.addAction("a", function action() {
@@ -264,7 +264,7 @@ describe("Flux", () => {
         }
       }
     };
-    const flux = new Fluxxor.Flux({}, actions);
+    const flux = new Flux({}, actions);
 
     expect(() => {
       flux.addAction("a", "b", "c", function action() {
@@ -300,7 +300,7 @@ describe("Flux", () => {
         }
       }
     };
-    const flux = new Fluxxor.Flux({}, actions);
+    const flux = new Flux({}, actions);
 
     flux.addAction("a", "c", "e", function action() {
       this.dispatch("action", { name: "a.c.e" });
@@ -316,7 +316,7 @@ describe("Flux", () => {
   });
 
   it("throws when using addAction incorrectly", () => {
-    const flux = new Fluxxor.Flux();
+    const flux = new Flux();
 
     expect(() => {
       flux.addAction();
@@ -382,7 +382,7 @@ describe("Flux", () => {
           spy3(action);
         }
       };
-      const flux = new Fluxxor.Flux({ store }, actions);
+      const flux = new Flux({ store }, actions);
 
       flux.on("dispatch", callback);
 

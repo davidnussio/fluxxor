@@ -1,8 +1,8 @@
-import Fluxxor from "../src";
+import { createStore } from "../src";
 
 describe("Store", () => {
   it("passes one object from constructor to initialize", done => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       initialize(opt, nothing) {
         expect(opt).toBe(42);
         expect(nothing).toBeUndefined();
@@ -14,7 +14,7 @@ describe("Store", () => {
   });
 
   it("copies properties from the spec", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       answer: { is: 42 }
     });
 
@@ -25,20 +25,20 @@ describe("Store", () => {
 
   it("disallows reserved property names", () => {
     expect(() => {
-      Fluxxor.createStore({
+      createStore({
         flux: true
       });
     }).toThrow(/reserved.*flux/i);
 
     expect(() => {
-      Fluxxor.createStore({
+      createStore({
         waitFor: true
       });
     }).toThrow(/reserved.*waitFor/i);
   });
 
   it("allows registering actions via an actions hash", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -55,7 +55,7 @@ describe("Store", () => {
   });
 
   it("throws when binding to a falsy action type", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       initialize() {
         this.bindActions("TYPE_ONE", "handleOne", null, "handleTwo");
       }
@@ -65,7 +65,7 @@ describe("Store", () => {
   });
 
   it("throws when using a non-function action handler", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       actions: {
         ACTION: "handleAction"
       }
@@ -82,7 +82,7 @@ describe("Store", () => {
   });
 
   it("throws when binding an action type to a falsy handler", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       actions: {
         ACTION: null
       },
@@ -95,7 +95,7 @@ describe("Store", () => {
 
   describe("#bindActions", () => {
     it("allows registering actions via an argument list", () => {
-      const Store = Fluxxor.createStore({
+      const Store = createStore({
         actions: {
           ACTION: "handleAction"
         },
@@ -134,7 +134,7 @@ describe("Store", () => {
     });
 
     it("allows registering actions via a hash", () => {
-      const Store = Fluxxor.createStore({
+      const Store = createStore({
         actions: {
           ACTION: "handleAction"
         },

@@ -1,4 +1,4 @@
-import Fluxxor from "../src";
+import { Dispatcher, createStore } from "../src";
 
 describe("Dispatcher", () => {
   let store1;
@@ -10,7 +10,7 @@ describe("Dispatcher", () => {
 
     store1 = { __handleAction__: handleActionStub };
     store2 = { __handleAction__: jest.fn() };
-    dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+    dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
   });
 
   it("dispatches actions to every store", () => {
@@ -91,7 +91,7 @@ describe("Dispatcher", () => {
   it("allows stores to wait on other stores", () => {
     let callCount = 0;
 
-    const Store1 = Fluxxor.createStore({
+    const Store1 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -104,7 +104,7 @@ describe("Dispatcher", () => {
         });
       }
     });
-    const Store2 = Fluxxor.createStore({
+    const Store2 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -118,7 +118,7 @@ describe("Dispatcher", () => {
 
     store1 = new Store1();
     store2 = new Store2();
-    dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+    dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
 
     dispatcher.dispatch({ type: "ACTION" });
 
@@ -133,7 +133,7 @@ describe("Dispatcher", () => {
   });
 
   it("does not allow a store to wait on itself", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -144,7 +144,7 @@ describe("Dispatcher", () => {
     });
     const store = new Store();
 
-    dispatcher = new Fluxxor.Dispatcher({ Store: store });
+    dispatcher = new Dispatcher({ Store: store });
 
     expect(() => {
       dispatcher.dispatch({ type: "ACTION" });
@@ -152,7 +152,7 @@ describe("Dispatcher", () => {
   });
 
   it("does not allow a store to wait more than once in the same loop", () => {
-    const Store1 = Fluxxor.createStore({
+    const Store1 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -162,11 +162,11 @@ describe("Dispatcher", () => {
         this.waitFor(["Store2"], jest.fn());
       }
     });
-    const Store2 = Fluxxor.createStore({});
+    const Store2 = createStore({});
 
     store1 = new Store1();
     store2 = new Store2();
-    dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+    dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
 
     expect(() => {
       dispatcher.dispatch({ type: "ACTION" });
@@ -174,7 +174,7 @@ describe("Dispatcher", () => {
   });
 
   it("allows a store to wait on a store more than once in different loops", () => {
-    const Store1 = Fluxxor.createStore({
+    const Store1 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -187,7 +187,7 @@ describe("Dispatcher", () => {
         });
       }
     });
-    const Store2 = Fluxxor.createStore({
+    const Store2 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -199,14 +199,14 @@ describe("Dispatcher", () => {
 
     store1 = new Store1();
     store2 = new Store2();
-    dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+    dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
     dispatcher.dispatch({ type: "ACTION" });
 
     expect(store1.value).toBe(42);
   });
 
   it("does not allow waiting on non-existant stores", () => {
-    const Store = Fluxxor.createStore({
+    const Store = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -217,7 +217,7 @@ describe("Dispatcher", () => {
     });
     const store = new Store();
 
-    dispatcher = new Fluxxor.Dispatcher({ Store: store });
+    dispatcher = new Dispatcher({ Store: store });
 
     expect(() => {
       dispatcher.dispatch({ type: "ACTION" });
@@ -225,7 +225,7 @@ describe("Dispatcher", () => {
   });
 
   it("detects direct circular dependencies between stores", () => {
-    const Store1 = Fluxxor.createStore({
+    const Store1 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -234,7 +234,7 @@ describe("Dispatcher", () => {
         this.waitFor(["Store2"], jest.fn());
       }
     });
-    const Store2 = Fluxxor.createStore({
+    const Store2 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -246,7 +246,7 @@ describe("Dispatcher", () => {
 
     store1 = new Store1();
     store2 = new Store2();
-    dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+    dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
 
     expect(() => {
       dispatcher.dispatch({ type: "ACTION" });
@@ -254,7 +254,7 @@ describe("Dispatcher", () => {
   });
 
   it("detects indirect circular dependencies between stores", () => {
-    const Store1 = Fluxxor.createStore({
+    const Store1 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -263,7 +263,7 @@ describe("Dispatcher", () => {
         this.waitFor(["Store2"], jest.fn());
       }
     });
-    const Store2 = Fluxxor.createStore({
+    const Store2 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -272,7 +272,7 @@ describe("Dispatcher", () => {
         this.waitFor(["Store3"], jest.fn());
       }
     });
-    const Store3 = Fluxxor.createStore({
+    const Store3 = createStore({
       actions: {
         ACTION: "handleAction"
       },
@@ -286,7 +286,7 @@ describe("Dispatcher", () => {
     store1 = new Store1();
     store2 = new Store2();
 
-    dispatcher = new Fluxxor.Dispatcher({
+    dispatcher = new Dispatcher({
       Store1: store1,
       Store2: store2,
       Store3: store3
@@ -310,12 +310,12 @@ describe("Dispatcher", () => {
     });
 
     it("warns if a dispatched action is not handled by any store", () => {
-      const Store1 = Fluxxor.createStore({});
-      const Store2 = Fluxxor.createStore({});
+      const Store1 = createStore({});
+      const Store2 = createStore({});
 
       store1 = new Store1();
       store2 = new Store2();
-      dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+      dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
       dispatcher.dispatch({ type: "ACTION_TYPE" });
 
       expect(warnSpy).toHaveBeenCalledTimes(1);
@@ -323,18 +323,18 @@ describe("Dispatcher", () => {
     });
 
     it("doesn't warn if a dispatched action is handled by any store", () => {
-      const Store1 = Fluxxor.createStore({
+      const Store1 = createStore({
         actions: {
           ACTION_TYPE: "handleAction"
         },
 
         handleAction() {}
       });
-      const Store2 = Fluxxor.createStore({});
+      const Store2 = createStore({});
 
       store1 = new Store1();
       store2 = new Store2();
-      dispatcher = new Fluxxor.Dispatcher({ Store1: store1, Store2: store2 });
+      dispatcher = new Dispatcher({ Store1: store1, Store2: store2 });
       dispatcher.dispatch({ type: "ACTION_TYPE" });
 
       expect(warnSpy).not.toHaveBeenCalled();
