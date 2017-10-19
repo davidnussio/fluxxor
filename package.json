@@ -1,6 +1,6 @@
 {
   "name": "@demiazz/fluxxor",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Flux architecture tools for React",
   "license": "MIT",
   "homepage": "https://github.com/demiazz/fluxxor",
