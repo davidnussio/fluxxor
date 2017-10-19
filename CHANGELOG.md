@@ -1,3 +1,9 @@
+Version 3.0.0
+=============
+
+* Remove `FluxChildMixin`
+* `FluxMixin` is not a function anymore
+
 Version 2.1.0
 =============
 
