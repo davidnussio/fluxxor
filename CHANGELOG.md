@@ -1,3 +1,8 @@
+Version 4.1.0
+=============
+
+* Use single file bundles for CommonJS and ES
+
 Version 4.0.0
 =============
 
