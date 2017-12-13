@@ -19,8 +19,8 @@
     "react",
     "flux"
   ],
-  "main": "lib/index.js",
-  "module": "lib-es/index.js",
+  "main": "lib/fluxxor.js",
+  "module": "lib-es/fluxxor.js",
   "files": [
     "dist/fluxxor.js",
     "dist/fluxxor.min.js",
